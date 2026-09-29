@@ -6,6 +6,9 @@ const binary = document.getElementById("binary");
 const FRAME_COUNT = 4;
 
 let currentFrame = 0;
+let isPlaying = false;
+let animationInterval = null;
+
 
 // 4枚分の画像
 let frames = [];
@@ -109,5 +112,37 @@ function changeFrame(n){
     pixels=frames[currentFrame];
 
     redraw();
+
+}
+
+function toggleAnimation() {
+
+    const button = document.getElementById("playButton");
+
+    if (!isPlaying) {
+
+        let frame = 0;
+
+        animationInterval = setInterval(() => {
+
+            changeFrame(frame);
+
+            frame++;
+
+            if (frame > 3) frame = 0;
+
+        }, 500);
+
+        button.textContent = "■ 停止";
+        isPlaying = true;
+
+    } else {
+
+        clearInterval(animationInterval);
+
+        button.textContent = "▶ 再生";
+        isPlaying = false;
+
+    }
 
 }
